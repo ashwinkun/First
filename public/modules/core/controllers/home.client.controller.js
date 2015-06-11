@@ -43,6 +43,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 				total:'348',
 				description:'REFERALS TO MODERATE'
 			},
-		]
+		];
 	}
 ]);
