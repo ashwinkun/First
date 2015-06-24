@@ -6,17 +6,17 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Cutomer = mongoose.model('Cutomer');
+	customer = mongoose.model('customer');
 
 /**
  * Globals
  */
-var user, cutomer;
+var user, customer;
 
 /**
  * Unit tests
  */
-describe('Cutomer Model Unit Tests:', function() {
+describe('customer Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -27,9 +27,9 @@ describe('Cutomer Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
-			cutomer = new Cutomer({
-				name: 'Cutomer Name',
+		user.save(function() {
+			customer = new customer({
+				name: 'customer Name',
 				user: user
 			});
 
@@ -39,24 +39,24 @@ describe('Cutomer Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
-			return cutomer.save(function(err) {
+			return customer.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			cutomer.name = '';
+		it('should be able to show an error when try to save without name', function(done) {
+			customer.name = '';
 
-			return cutomer.save(function(err) {
+			return customer.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
 	});
 
-	afterEach(function(done) { 
-		Cutomer.remove().exec();
+	afterEach(function(done) {
+		customer.remove().exec();
 		User.remove().exec();
 
 		done();

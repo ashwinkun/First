@@ -2,18 +2,23 @@
 
 module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
-	var cutomers = require('../../app/controllers/cutomers.server.controller');
+	var customers = require('../../app/controllers/customers.server.controller');
 
-	// Cutomers Routes
-	app.route('/cutomers')
-		.get(cutomers.list)
-		.post(users.requiresLogin, cutomers.create);
+	// customers Routes
+	app.route('/customers')
+		.get(customers.list)
+		.post(users.requiresLogin, customers.create);
 
-	app.route('/cutomers/:cutomerId')
-		.get(cutomers.read)
-		.put(users.requiresLogin, cutomers.hasAuthorization, cutomers.update)
-		.delete(users.requiresLogin, cutomers.hasAuthorization, cutomers.delete);
+		// customers Routes
+		app.route('/customers')
+			.get(customers.list)
+			.post(users.requiresLogin, customers.create);
 
-	// Finish by binding the Cutomer middleware
-	app.param('cutomerId', cutomers.cutomerByID);
+	app.route('/customers/:customerId')
+		.get(customers.read)
+		.put(users.requiresLogin, customers.hasAuthorization, customers.update)
+		.delete(users.requiresLogin, customers.hasAuthorization, customers.delete);
+
+	// Finish by binding the customer middleware
+	app.param('customerId', customers.customerByID);
 };

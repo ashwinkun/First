@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Cutomer Schema
+ * customer Schema
  */
-var CutomerSchema = new Schema({
+var CustomerSchema = new Schema({
 	firstName: {
 		type: String,
 		default: '',
@@ -63,4 +63,4 @@ var CutomerSchema = new Schema({
 	}
 });
 
-mongoose.model('Cutomer', CutomerSchema);
+mongoose.model('Customer', CustomerSchema);
