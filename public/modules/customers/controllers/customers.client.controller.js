@@ -1,8 +1,8 @@
 'use strict';
 
 // customers controller
-angular.module('customers').controller('CustomersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Customers',
-	function($scope, $stateParams, $location, Authentication, Customers) {
+angular.module('customers').controller('CustomersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Customers','$modal', '$log',
+	function($scope, $stateParams, $location, Authentication, Customers,$modal, $log) {
 		$scope.authentication = Authentication;
 
 		// Create new customer
@@ -72,11 +72,39 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
 			$scope.customers = Customers.query();
 		};
 
+		this.modalUpdate = function (size,selectedCustomer) {
+
+		var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'modules/customers/views/edit-customer.client.view.html',
+		      controller: function ($scope, $modalInstance, customer) {
+						$scope.customer = customer;
+					},
+		      size: size,
+		      resolve: {
+		        customer: function () {
+		          return selectedCustomer;
+		        }
+		      }
+		    });
+
+		    modalInstance.result.then(function (selectedItem) {
+		      $scope.selected = selectedItem;
+		    }, function () {
+		      $log.info('Modal dismissed at: ' + new Date());
+		    });
+		  };
+
+		  $scope.toggleAnimation = function () {
+		    $scope.animationsEnabled = !$scope.animationsEnabled;
+		  };
 		// Find existing customer
-		$scope.findOne = function() {
+		/*$scope.findOne = function() {
 			$scope.customer = Customers.get({
-				customerId: $stateParams.customerId
+				//customerId: $stateParams.customerId
+				firstName :'KAvin'
 			});
-		};
+
+		};*/
 	}
 ]);
