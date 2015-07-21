@@ -61,7 +61,7 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
 			var customer = $scope.customer;
 
 			customer.$update(function() {
-				$location.path('customers/' + customer._id);
+			//	$location.path('customers/' + customer._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -79,6 +79,14 @@ angular.module('customers').controller('CustomersController', ['$scope', '$state
 		      templateUrl: 'modules/customers/views/edit-customer.client.view.html',
 		      controller: function ($scope, $modalInstance, customer) {
 						$scope.customer = customer;
+						$scope.ok = function () {
+							$modalInstance.close($scope.customer);
+							this.update();
+						};
+
+						$scope.cancel = function () {
+								$modalInstance.dismiss('cancel');
+							};
 					},
 		      size: size,
 		      resolve: {
